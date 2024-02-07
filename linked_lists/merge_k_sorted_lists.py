@@ -25,6 +25,25 @@ def merge_two_lists(l1, l2):
         result.next = merge_two_lists(l1, l2.next)
     return result
 
+def merge_two_lists_cycle(l1, l2):
+
+    current = ListNode()
+
+    result = current
+    while True:
+        if l1 is None and l2 is None:
+            break
+
+        if l2 is None or l1.val < l2.val:
+            current.next = l1
+            l1 = l1.next
+        else:
+            current.next = l2
+            l2 = l2.next
+        current = current.next
+
+    return result.next
+
 
 def merge_k_lists(lists):
     if len(lists) == 0:
@@ -37,6 +56,20 @@ def merge_k_lists(lists):
     left = merge_k_lists(lists[:mid])
     right = merge_k_lists(lists[mid:])
     return merge_two_lists(left, right)
+
+def merge_k_lists_cycle(lists):
+    if len(lists) == 0:
+        return None
+    if len(lists) == 1:
+        return lists[0]
+
+    result = lists[0]
+
+    for l in lists[1:]:
+        result = merge_two_lists(result, l)
+
+    return result
+
 def from_list(arr):
     result = None
     if arr is not None:
@@ -55,13 +88,15 @@ def to_list(l):
         node = node.next
     return nodes
 
-list_1 = [1, 4, 5, 5, 8]
-list_2 = [1, 3, 4, 4, 5]
+list_1 = [1, 4, 5, 5]
+list_2 = [0, 1, 3, 4, 4, 5]
 list_3 = [1,2,3]
 
 l1 = from_list(list_1)
 l2 = from_list(list_2)
 l3 = from_list(list_3)
 
-r = merge_k_lists([l1, l2, l3])
+# r = merge_k_lists_cycle([l1, l2, l3])
+# r = merge_k_lists([l1, l2, l3])
+r = merge_two_lists_cycle(l1, l2)
 print(to_list(r))
