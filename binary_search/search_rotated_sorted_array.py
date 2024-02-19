@@ -13,3 +13,35 @@ return the index of target if it is in nums, or -1 if it is not in nums.
 
 You must write an algorithm with O(log n) runtime complexity.
 """
+
+
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        pass
+
+    def search_bi(self, row, target, left=0, right=None):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        if right is None:
+            right = len(row)-1
+
+        mid = (left+right) // 2
+
+        if left <= right:
+            if row[mid] == target:
+                return True
+
+            if row[mid] > target:
+                return self.search_bi(row, target, left, mid-1)
+            else:
+                return self.search_bi(row, target, mid+1, right)
+        else:
+            return False
