@@ -33,54 +33,36 @@ You must write an algorithm with O(log n) runtime complexity.
 
 
 class Solution(object):
-    def search(self, nums, target):
+    def findMin(self, nums):
         """
         :type nums: List[int]
         :type target: int
         :rtype: int
         """
-        return self.search_bi_rotated(nums, target)
+        return self.search_min(nums)
 
-    def search_bi_rotated(self, row, target, left=0, right=None):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
+    def search_min(self, row, left=0, right=None):
+
         if right is None:
             right = len(row)-1
 
+        # if array is sorted return first element
+        if row[left] <= row [right]:
+            return row[left]
+
         mid = (left+right) // 2
+
         print('mid=', mid, 'left=', left, 'right=', right)
-        if left <= right:
-            if row[mid] == target:
-                return mid
 
-            # Check if left part is sorted
-            if row[mid] >= row[left]:
-                print('left sorted')
-                # Target can be in sorted part usual search, strong greater, because row[mid]
-                # cannot be equal to target
-                if row[mid] > target >= row[left]:
-                    print('target in sorted part')
-                    return self.search_bi_rotated(row, target, left, mid - 1)
-                else:
-                    print('target in unsorted part')
-                    return self.search_bi_rotated(row, target, mid+1, right)
+        # Check if left part is sorted
+        if row[mid] >= row[left]:
+            print('left sorted')
 
-            # Otherwise right part is sorted
-            else:
-                print('right sorted')
-                # Target can be in sorted part usual search
-                if row[mid] < target <= row[right]:
-                    print('target in sorted part')
-                    return self.search_bi_rotated(row, target, mid + 1, right)
-                # Target can be in unsorted part, searching the left part
-                else:
-                    print('target in unsorted part')
-                    return self.search_bi_rotated(row, target, left, mid - 1)
+            return self.search_min(row, mid+1, right)
         else:
-            return -1
+            print('right_sorted')
+
+            return  self.search_min(row, left, mid)
 
 
 if __name__ == '__main__':
@@ -88,6 +70,5 @@ if __name__ == '__main__':
     s= Solution()
 
     nums = [3,1]
-    target = 1
 
-    print(s.search(nums, target))
+    print(s.findMin(nums))
