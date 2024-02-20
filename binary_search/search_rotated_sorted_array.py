@@ -42,8 +42,9 @@ class Solution(object):
             # Check if left part is sorted
             if row[mid] >= row[left]:
                 print('left sorted')
-                # Target can be in sorted part usual search
-                if row[mid] >= target >= row[left]:
+                # Target can be in sorted part usual search, strong greater, because row[mid]
+                # cannot be equal to target
+                if row[mid] > target >= row[left]:
                     print('target in sorted part')
                     return self.search_bi_rotated(row, target, left, mid - 1)
                 else:
@@ -54,7 +55,7 @@ class Solution(object):
             else:
                 print('right sorted')
                 # Target can be in sorted part usual search
-                if row[mid] <= target <= row[right]:
+                if row[mid] < target <= row[right]:
                     print('target in sorted part')
                     return self.search_bi_rotated(row, target, mid + 1, right)
                 # Target can be in unsorted part, searching the left part
