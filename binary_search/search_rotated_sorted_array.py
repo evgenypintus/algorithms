@@ -22,9 +22,9 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        pass
+        return self.search_bi_rotated(nums, target)
 
-    def search_bi(self, row, target, left=0, right=None):
+    def search_bi_rotated(self, row, target, left=0, right=None):
         """
         :type nums: List[int]
         :type target: int
@@ -34,14 +34,42 @@ class Solution(object):
             right = len(row)-1
 
         mid = (left+right) // 2
-
+        print('mid=', mid, 'left=', left, 'right=', right)
         if left <= right:
             if row[mid] == target:
-                return True
+                return mid
 
-            if row[mid] > target:
-                return self.search_bi(row, target, left, mid-1)
+            # Check if left part is sorted
+            if row[mid] >= row[left]:
+                print('left sorted')
+                # Target can be in sorted part usual search
+                if row[mid] >= target >= row[left]:
+                    print('target in sorted part')
+                    return self.search_bi_rotated(row, target, left, mid - 1)
+                else:
+                    print('target in unsorted part')
+                    return self.search_bi_rotated(row, target, mid+1, right)
+
+            # Otherwise right part is sorted
             else:
-                return self.search_bi(row, target, mid+1, right)
+                print('right sorted')
+                # Target can be in sorted part usual search
+                if row[mid] <= target <= row[right]:
+                    print('target in sorted part')
+                    return self.search_bi_rotated(row, target, mid + 1, right)
+                # Target can be in unsorted part, searching the left part
+                else:
+                    print('target in unsorted part')
+                    return self.search_bi_rotated(row, target, left, mid - 1)
         else:
-            return False
+            return -1
+
+
+if __name__ == '__main__':
+
+    s= Solution()
+
+    nums = [3,1]
+    target = 1
+
+    print(s.search(nums, target))
