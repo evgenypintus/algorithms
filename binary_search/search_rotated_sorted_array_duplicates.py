@@ -70,7 +70,7 @@ if __name__ == '__main__':
 
     s= Solution()
 
-    nums = [2,5,6,0,0,1,2]
+    nums = [1,0,1,1,1]
     target = 0
 
     print(s.search(nums, target))

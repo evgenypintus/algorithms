@@ -32,20 +32,21 @@ class Solution(object):
 
         if left <= right:
             if nums[mid] == target:
-                return mid
+                return True
 
             if nums[mid] > target:
                 return self.search_bi(nums, target, left, mid-1)
             else:
                 return self.search_bi(nums, target, mid+1, right)
         else:
-            return -1
+            return False
+
 
 if __name__ == '__main__':
 
     s= Solution()
 
-    nums = [2,5,6,0,0,1,2]
-    target = 0
+    nums = [2,5,6,0,0,1,1,2]
+    target = 9
 
     print(s.search(nums, target))
