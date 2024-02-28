@@ -35,12 +35,17 @@ class Solution(object):
         mid = (left+right) // 2
 
         print('mid=', mid, 'left=', left, 'right=', right)
-        if left <= right:
-            if row[mid] == target:
-                return True
+        if row[mid] == target or row[left]==target or row[right]==target:
+            return True
+
+        if left < right:
+            # Checking if the array is rotated that way that left=right=mid
+            # shifting the boundaries
+            if row[mid] == row[left] == row[right]:
+                return self.search_bi_rotated(row, target, left+1, right - 1)
 
             # Check if left part is sorted
-            if row[mid] >= row[left]:
+            if row[mid] > row[left]:
                 print('left sorted')
                 # Target can be in sorted part usual search, strong greater, because row[mid]
                 # cannot be equal to target
@@ -70,7 +75,7 @@ if __name__ == '__main__':
 
     s= Solution()
 
-    nums = [1,0,1,1,1]
+    nums = [2,2,2,0,2,2]
     target = 0
 
     print(s.search(nums, target))
