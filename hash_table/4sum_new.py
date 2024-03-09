@@ -41,18 +41,14 @@ class Solution(object):
 
         result = set()
         first_part = self.build_first_part(nums)
-        #print(first_part)
-
-        for i in range(len(nums) - 1):
-            for k in range(i + 1, len(nums)):
-
-                sum = nums[i] + nums[k]
-                add_value = target - sum
-                pair = first_part.get(add_value)
-                if pair:
-                    for pair in first_part.get(add_value):
-                        if pair[0] != i and pair[0] != k and pair[1] != i and pair[1] != k:
-                            res = [nums[pair[0]], nums[pair[1]], nums[k], nums[i]]
+        for sum, indices in first_part.items():
+            add_value = target - sum
+            pair_list = first_part.get(add_value)
+            if pair_list:
+                for pair in pair_list:
+                    for index in indices:
+                        if pair[0] != index[0] and pair[0] != index[1] and pair[1] != index[0] and pair[1] != index[1]:
+                            res = [nums[pair[0]], nums[pair[1]], nums[index[0]], nums[index[1]]]
                             res.sort()
                             result.add(tuple(res))
         return [list(x) for x in result] if result else None
@@ -61,7 +57,7 @@ if __name__ == '__main__':
 
     s= Solution()
 
-    nums = [0,0,0,0]
-    target = 1
+    nums = [2,2,2,2,2]
+    target = 8
 
     print(s.fourSum(nums, target))
