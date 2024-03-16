@@ -21,7 +21,7 @@ class Solution(object):
             return None
         return self.four_sum(nums, target)
 
-    def four_sum(self, nums, target: int):
+    def four_sum(self, nums, target):
         n = len(nums)  # size of the array
         ans = []
 
@@ -58,7 +58,6 @@ class Solution(object):
                         k += 1
                     else:
                         l -= 1
-
         return ans
 
 
@@ -66,8 +65,8 @@ if __name__ == '__main__':
 
     s= Solution()
 
-    nums = [-4,-3,-2,-1,0,0,1,2,3,4]
-    target = 0
+    nums = [2,2,2,2,2]
+    target = 8
 
     print(s.four_sum(nums, target))
 
