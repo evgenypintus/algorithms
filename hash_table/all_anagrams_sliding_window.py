@@ -14,49 +14,47 @@ class Solution(object):
         :type p: str
         :rtype: List[int]
         """
-        sl = len(s)
-        pl = len(p)
-        dic2 = {}
+        arr = []
+        sliding = {}
+        if len(s) < len(p):
+            return None
+        if len(s) ==0 or  len(p) == 0:
+            return None
+
+        # Build a dictionary with all letters in anagram with their quantity
+        anagram = {}
+        anagram_len = len(p)
+
         for i in p:
-            if i in dic2:
-                dic2[i] += 1
+            if i in anagram:
+                anagram[i] += 1
             else:
-                dic2[i] = 1
-        #print(dic2)
-
-        arr =[]
-        dic1 = {}
-
-        for i in range(sl):
-            if s[i] in dic1:
-                dic1[s[i]] += 1
+                anagram[i] = 1
+        # Searching through a target string
+        # We don't need to go till the end
+        for l in range(len(s)):
+            if s[l] in sliding:
+                sliding[s[l]] += 1
             else:
-                dic1[s[i]] = 1
-            # print(dic1)
-            if i >= pl:
-                if dic1[s[i-pl]] == 1:
-                    # here we are removing the 1st element
-                    # after adding 4th element from
-                    # the dictionary[window]
-                    del dic1[s[i-pl]]
+                sliding[s[l]] = 1
+
+            if l>= anagram_len:
+                if sliding[s[l-anagram_len]] == 1:
+                    del sliding[s[l-anagram_len]]
                 else:
-                    # here we are removing the 1st element
-                    # but here we are removing the same element
-                    # like: "baeb" --> {b:2, a:1, e:1}
-                    # after: "b" | "aeb" --> {b:1, a:1, e:1}
-                    dic1[s[i-pl]] -= 1
-            if dic1 == dic2:
-                # indexing starts from 0 so we have to
-                # add 1 to find the actual index
-                arr.append(i-pl+1)
+                    sliding[s[l-anagram_len]] -= 1
+
+            if anagram == sliding:
+                arr.append(l-anagram_len+1)
+
         return arr
 
 if __name__ == '__main__':
 
     sol= Solution()
 
-    s = "cbaebabacd"
-    p = "abc"
+    s = "abab"
+    p = "ab"
 
     print(sol.findAnagrams(s, p))
 
