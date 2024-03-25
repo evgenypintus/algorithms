@@ -12,14 +12,16 @@ class Solution(object):
         curmin = nums[0]
         st = []
         for i in range(1, len(nums)):
-
-            while st and nums[i] >= st[-1][1]:
+            print(st)
+            while st and nums[i] > st[-1][1]:
                 st.pop()
 
             if st and st[-1][0] < nums[i]:
                 return True
 
-            st.append((curmin, nums[i]))
+            if nums[i] > curmin + 1 and (curmin, nums[i]) not in st:
+                st.append((curmin, nums[i]))
+
             curmin = min(curmin, nums[i])
         return False
 
