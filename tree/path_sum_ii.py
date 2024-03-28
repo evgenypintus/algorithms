@@ -15,17 +15,47 @@ class TreeNode(object):
         self.left = left
         self.right = right
 
+
 class Solution(object):
+
+    def __init__(self):
+        self.all_paths = []
+
+    def find_sum(self, p, sum, cur_path, cur_sum):
+
+        if not p:
+            return
+
+        cur_path.append(p.val)
+        cur_sum += p.val
+        if not p.left and not p.right:
+
+            if cur_sum == sum:
+                self.all_paths.append(list(cur_path))
+            cur_sum = 0
+
+        self.find_sum(p.left, sum, cur_path, cur_sum)
+        self.find_sum(p.right, sum, cur_path, cur_sum)
+        del cur_path[-1]
+
     def pathSum(self, root, targetSum):
         """
         :type root: TreeNode
         :type targetSum: int
         :rtype: List[List[int]]
         """
+        self.find_sum(root, targetSum, [], 0)
+        return self.all_paths
+
 if __name__ == '__main__':
 
-    s= Solution()
+    s = Solution()
 
-    nums = [3,5,0,3,4]
+    root = TreeNode(5,
+                    TreeNode(4,
+                             TreeNode(11, TreeNode(7), TreeNode(2))),
+                    TreeNode(8, TreeNode(13), TreeNode(4, TreeNode(5), TreeNode(7))))
 
-    print(s.find132pattern(nums))
+    targetSum = 22
+
+    print(s.pathSum(root, targetSum))
