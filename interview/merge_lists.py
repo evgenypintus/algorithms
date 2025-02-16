@@ -33,6 +33,6 @@ def merge_lists(first: list, second: list) -> list:
 if __name__ == '__main__':
 
     a = [1,2,32,434]
-    b = [1]
+    b = [1,4,6,2, 3]
 
     print(merge_lists(a,b))

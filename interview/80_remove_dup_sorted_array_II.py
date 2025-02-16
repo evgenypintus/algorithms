@@ -32,5 +32,5 @@ class Solution(object):
 
 if __name__ == '__main__':
     s = Solution()
-    nums =[1,1,1,2,2,3]
+    nums =[1,1,1,2,2,2,3]
     print(s.removeDuplicates(nums))
