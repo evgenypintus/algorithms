@@ -46,9 +46,7 @@ class Solution(object):
         return res
 
 
-if __name__ == '__main__':
 
-    s = Solution()
 
     # matrix = [[1, 2, 3, 4],
     #           [5, 6, 7, 8],
