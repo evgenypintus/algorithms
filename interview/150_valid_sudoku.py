@@ -2,7 +2,7 @@ class Solution(object):
 
     rows = dict()
     columns = dict()
-    boxes = dict ()
+    boxes = dict()
 
     def get_box(self, row, column):
         return (int(column/3)+1) + int(row/3)*3

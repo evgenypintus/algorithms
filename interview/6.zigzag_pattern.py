@@ -14,11 +14,9 @@ class Solution(object):
 
             # Read direct path
             result_matrix.append([''] * numRows)
-            k=0
-            while i < n and k < numRows:
-                result_matrix[row][:k] = s[i]
-                k += 1
-                i += 1
+            result_matrix[row][:numRows] = s[i: i+numRows]
+
+            i += numRows
 
             row +=1
 
