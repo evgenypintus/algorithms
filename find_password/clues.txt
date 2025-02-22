@@ -1,0 +1,2 @@
+[p,pa,pass]$$[w,wo,wor]d
+po$$word
